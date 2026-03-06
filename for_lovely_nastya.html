@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конверт для Настюши 💜</title>
+    <script>
+
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            /* Нежно-фиолетовый градиент */
+            background: linear-gradient(145deg, #f0e3ff 0%, #e2d1ff 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ========== ПАРЯЩИЕ ТЮЛЬПАНЫ ========== */
+        .floating-tulips {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .tulip {
+            position: absolute;
+            width: 50px;
+            height: 90px;
+            opacity: 0.7;
+            animation: floatAround 18s infinite ease-in-out;
+            filter: drop-shadow(0 5px 10px rgba(170, 130, 200, 0.3));
+        }
+
+        /* Разные размеры и позиции */
+        .tulip:nth-child(1) { left: 5%; top: 10%; animation-duration: 22s; width: 45px; }
+        .tulip:nth-child(2) { left: 15%; top: 70%; animation-duration: 19s; animation-delay: -2s; width: 55px; }
+        .tulip:nth-child(3) { left: 85%; top: 20%; animation-duration: 25s; animation-delay: -5s; width: 40px; }
+        .tulip:nth-child(4) { left: 45%; top: 80%; animation-duration: 20s; animation-delay: -1s; width: 60px; }
+        .tulip:nth-child(5) { left: 70%; top: 40%; animation-duration: 23s; animation-delay: -7s; width: 50px; }
+        .tulip:nth-child(6) { left: 25%; top: 25%; animation-duration: 21s; animation-delay: -3s; width: 48px; }
+        .tulip:nth-child(7) { left: 60%; top: 85%; animation-duration: 24s; animation-delay: -9s; width: 52px; }
+        .tulip:nth-child(8) { left: 90%; top: 60%; animation-duration: 18s; animation-delay: -4s; width: 44px; }
+        .tulip:nth-child(9) { left: 35%; top: 15%; animation-duration: 26s; animation-delay: -6s; width: 57px; }
+        .tulip:nth-child(10) { left: 75%; top: 90%; animation-duration: 22s; animation-delay: -8s; width: 49px; }
+        .tulip:nth-child(11) { left: 10%; top: 45%; animation-duration: 20s; animation-delay: -2.5s; width: 53px; }
+        .tulip:nth-child(12) { left: 55%; top: 5%; animation-duration: 23s; animation-delay: -1.5s; width: 46px; }
+
+        /* Стебель */
+        .stem {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 3px;
+            height: 70%;
+            background: linear-gradient(to top, #9b8f5c, #c4b37a);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        /* Бутон тюльпана */
+        .flower-head {
+            position: absolute;
+            bottom: 65%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 28px;
+            height: 32px;
+            background: #e8b1ff;    /* Фиолетовый оттенок */
+            border-radius: 60% 60% 40% 40%;
+            box-shadow: 0 -3px 8px rgba(200, 150, 255, 0.4);
+        }
+
+        .flower-head::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 5px;
+            width: 10px;
+            height: 12px;
+            background: #d99eff;
+            border-radius: 50% 50% 0 0;
+            transform: rotate(-15deg);
+        }
+
+        .flower-head::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            right: 5px;
+            width: 10px;
+            height: 12px;
+            background: #d99eff;
+            border-radius: 50% 50% 0 0;
+            transform: rotate(15deg);
+        }
+
+        /* Листья */
+        .leaf {
+            position: absolute;
+            width: 12px;
+            height: 30px;
+            background: #b0b87b;
+            border-radius: 80% 0 40% 20%;
+            bottom: 20%;
+            left: 35%;
+            transform: rotate(-25deg);
+            opacity: 0.6;
+        }
+
+        .leaf.right {
+            left: auto;
+            right: 35%;
+            transform: rotate(140deg) scaleX(-1);
+        }
+
+        /* Анимация полета */
+        @keyframes floatAround {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(30px, -25px) rotate(5deg);
+            }
+            50% {
+                transform: translate(-20px, -45px) rotate(-3deg);
+            }
+            75% {
+                transform: translate(-35px, 10px) rotate(4deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+        }
+
+        /* Делаем тюльпаны более заметными, добавляем разные цвета */
+        .tulip:nth-child(odd) .flower-head {
+            background: #f0c0ff;
+        }
+        .tulip:nth-child(3n) .flower-head {
+            background: #ddb5ff;
+        }
+        .tulip:nth-child(5n+2) .flower-head {
+            background: #f5d0ff;
+        }
+
+        /* ========== КОНВЕРТ (теперь на фиолетовом фоне виден четко) ========== */
+        .envelope-container {
+            perspective: 2000px;
+            width: 100%;
+            max-width: 620px;  /* Еще чуть крупнее */
+            aspect-ratio: 4 / 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            position: relative;
+            height: 550px;
+        }
+
+        .envelope-card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.9s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+            transform-style: preserve-3d;
+            cursor: pointer;
+            filter: drop-shadow(0 30px 35px -12px #9b7fb5);
+        }
+
+        .envelope-container:hover .envelope-card,
+        .envelope-container:focus-within .envelope-card {
+            transform: rotateY(180deg);
+        }
+
+        /* Общие стороны конверта — делаем белее, чтобы контрастировал с фоном */
+        .envelope-front, .envelope-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px 20px 30px 30px;
+            overflow: hidden;
+            background: #ffffff;  /* Чисто белый для контраста */
+            box-shadow: 0 20px 35px rgba(140, 100, 170, 0.4);
+            border: 3px solid #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Передняя часть (конверт) с легким розоватым оттенком */
+        .envelope-front {
+            transform: rotateY(0deg);
+            background: #fff5fc;
+            background-image: radial-gradient(circle at 30% 40%, #ffe4f0 4px, transparent 4px),
+                              radial-gradient(circle at 70% 70%, #ffe1ef 5px, transparent 5px);
+            background-size: 50px 50px, 70px 70px;
+        }
+
+        /* Задняя сторона (поздравление) */
+        .envelope-back {
+            transform: rotateY(180deg);
+            background: #fff9ff;
+            background-image: linear-gradient(45deg, #fff2f7 20%, #ffffff 80%);
+        }
+
+        /* Верхний клапан конверта */
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: #ffd9e8;
+            clip-path: polygon(0% 0%, 50% 80%, 100% 0%);
+            border-bottom: 3px solid #ffb7cf;
+            z-index: 20;
+            opacity: 0.95;
+            box-shadow: inset 0 -5px 8px #ffa5c2;
+        }
+
+        /* Нижняя часть конверта */
+        .envelope-body {
+            position: relative;
+            width: 92%;
+            height: 72%;
+            background: #ffffff;
+            margin-top: 15%;
+            border-radius: 18px 18px 30px 30px;
+            border: 2px solid #ffc1d4;
+            box-shadow: inset 0 0 0 3px white, 0 10px 15px rgba(200, 140, 180, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+        }
+
+        /* Имитация бумажного вкладыша */
+        .paper-inside {
+            background: #fff5fa;
+            width: 94%;
+            height: 90%;
+            border-radius: 15px;
+            box-shadow: inset 0 0 0 1px #ffc9dd, 0 6px 10px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 18px;
+        }
+
+        /* Текст на конверте */
+        .to-name {
+            font-size: 26px;
+            font-weight: 700;
+            color: #b34e68;
+            text-shadow: 0 3px 0 #ffe2eb, 0 6px 12px #feb0c2;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 5px 25px;
+            border-radius: 60px;
+            backdrop-filter: blur(3px);
+            letter-spacing: 1px;
+        }
+
+        .greeting-short {
+            font-size: 24px;
+            color: #a75870;
+            background: #ffffffdb;
+            padding: 10px 28px;
+            border-radius: 50px;
+            border: 2px solid white;
+            box-shadow: 0 6px 12px #fec0d0;
+            font-style: italic;
+        }
+        .btn {
+            font-size: 16px;
+        }
+
+        /* Текст внутри */
+        .back-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #b9466a;
+            margin-bottom: 20px;
+            background: #fff0f5;
+            padding: 8px 24px;
+            border-radius: 50px;
+            display: inline-block;
+            border: 2px solid white;
+            box-shadow: 0 4px 0 #ffb8ce;
+        }
+
+        .message-block {
+            background: #ffffffec;
+            border-radius: 50px;
+            padding: 30px 20px;
+            margin: 15px 0;
+            border: 3px dashed #ff9ebb;
+            box-shadow: 0 8px 0 #ffc0d0;
+            width: 100%;
+        }
+
+        .gift-text {
+            font-size: 20px;
+            color: #9f4965;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .teacher-info {
+            background: #fcf0d5;
+            color: #bd4b6e;
+            padding: 16px 20px;
+            border-radius: 60px;
+            font-size: 16px;
+            font-weight: 700;
+            border: 3px solid #ffb0c8;
+            display: inline-block;
+            margin: 20px 0 10px;
+            box-shadow: 0 6px 12px #feb8cf;
+        }
+
+        .teacher-info a {
+            color: #c95c7c;
+            text-decoration: none;
+            background: #fff5bf;
+            padding: 5px 16px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 5px;
+            border: 1px solid #ffbfd0;
+        }
+
+        .wishes {
+            font-size: 20px;
+            color: #ad6a7c;
+            margin-top: 20px;
+            font-style: italic;
+            background: #fff0f7;
+            padding: 8px 22px;
+            border-radius: 50px;
+            display: inline-block;
+        }
+
+        /* Декоративные элементы */
+        .stamp {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 55px;
+            height: 55px;
+            background: #fec8e0;
+            border-radius: 50%;
+            border: 4px dotted white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #b34e68;
+            transform: rotate(15deg);
+            box-shadow: 0 4px 8px #cf9fb0;
+            z-index: 25;
+        }
+
+        .heart-sticker {
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            font-size: 36px;
+            opacity: 0.7;
+            transform: rotate(5deg);
+            filter: drop-shadow(0 4px 4px #eba7bd);
+        }
+
+        .flower-corner {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            font-size: 34px;
+            opacity: 0.6;
+            transform: rotate(-8deg);
+        }
+    </style>
+</head>
+<body>
+    <!-- ПАРЯЩИЕ ТЮЛЬПАНЫ НА ФОНЕ -->
+    <div class="floating-tulips">
+        <div class="tulip"><div class="stem"></div><div class="flower-head"></div><div class="leaf"></div><div class="leaf right"></div></div>
+        <div class="tulip"><div class="stem"></div><div class="flower-head"></div><div class="leaf"></div><div class="leaf right"></div></div>
+        <div class="tulip"><div class="stem"></div><div class="flower-head"></div><div class="leaf"></div><div class="leaf right"></div></div>
+        <div class="tulip"><div class="stem"></div><div class="flower-head"></div><div class="leaf"></div><div class="leaf right"></div></div>
+        <div class="tulip"><div class="stem"></div><div class="flower-head"></div><div class="leaf"></div><div class="leaf right"></div></div>
+        <div class="tulip"><div class="stem"></div><div class="flower-head"></div><div class="leaf"></div><div class="leaf right"></div></div>
+        <div class="tulip"><div class="stem"></div><div class="flower-head"></div><div class="leaf"></div><div class="leaf right"></div></div>
+        <div class="tulip"><div class="stem"></div><div class="flower-head"></div><div class="leaf"></div><div class="leaf right"></div></div>
+        <div class="tulip"><div class="stem"></div><div class="flower-head"></div><div class="leaf"></div><div class="leaf right"></div></div>
+        <div class="tulip"><div class="stem"></div><div class="flower-head"></div><div class="leaf"></div><div class="leaf right"></div></div>
+        <div class="tulip"><div class="stem"></div><div class="flower-head"></div><div class="leaf"></div><div class="leaf right"></div></div>
+        <div class="tulip"><div class="stem"></div><div class="flower-head"></div><div class="leaf"></div><div class="leaf right"></div></div>
+    </div>
+
+    <!-- ОСНОВНОЙ КОНВЕРТ -->
+    <div class="envelope-container">
+        <div class="envelope-card" tabindex="0" role="button" aria-label="Поздравительный конверт. Наведите, чтобы открыть">
+
+            <!-- ЛИЦЕВАЯ СТОРОНА -->
+            <div class="envelope-front">
+                <div class="flap"></div>
+                <div class="envelope-body">
+                    <div class="paper-inside">
+                        <div class="to-name">💗 Настюша 💗</div>
+                        <div class="greeting-short">с 8 марта!</div>
+                        <div style="margin-top: 25px; font-size: 26px; opacity: 0.5;">🌸 💌 🌸</div>
+                        <button class="greeting-short btn" style="margin-top: 20px;">НАЖМИ И ПОЛУЧИ ПОДАРОК</button>
+                    </div>
+                </div>
+                <div class="stamp">🌷</div>
+                <div class="heart-sticker">❤️</div>
+            </div>
+
+            <!-- ЗАДНЯЯ СТОРОНА -->
+            <div class="envelope-back">
+                <div style="position: absolute; top: 15px; left: 20px; font-size: 40px; opacity: 0.2;">🌷🌷</div>
+                <div style="position: absolute; bottom: 25px; right: 20px; font-size: 50px; opacity: 0.15;">🌸</div>
+
+                <div style="z-index: 10; width: 90%; text-align: center;">
+                    <!-- <div class="back-title">✨ Сюрприз внутри! ✨</div> -->
+                    
+                    <div class="message-block">
+                        <div class="gift-text">
+                            🎤 Поздравляем тебя! 🎤
+                        </div>
+                        <div style="font-size: 22px; color: #b14f6b; margin: 12px 0 8px;">
+                            Дарим сертификат
+                        </div>
+                        <div class="teacher-info">
+                            🎵 на 5 занятий по вокалу у Ани<br>
+                            <a href="https://t.me/ZayAnnaVocal" style="cursor: default;">@ZayAnnaVocal</a> 🎵
+                        </div>
+                    </div>
+
+                    <div class="wishes">
+                        Пусть голос звучит, как весенний ручей! 💕
+                    </div>
+
+                    <div style="margin-top: 25px; display: flex; justify-content: center; gap: 15px; font-size: 28px; opacity: 0.6;">
+                        <span>🌼</span> <span>💜</span> <span>🌼</span>
+                    </div>
+                </div>
+
+                <div class="flower-corner">🌷</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
